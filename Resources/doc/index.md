@@ -46,6 +46,7 @@ public function registerBundles()
     $bundles = array(
         // ...
         new FDevs\TagBundle\FDevsTagBundle(),
+        new FDevs\PageBundle\FDevsPageBundle(),
     );
 }
 ```
@@ -67,6 +68,17 @@ sonata_admin:
 ```
 
 ### Step 4: Use the bundle
+
+add config
+``` yaml
+# app/config/config.yml
+f_devs_tag:
+    list_type:
+        tag: 'Tag'
+        category: 'Category'
+```
+
+use in form
 
 ``` php
 $builder->add('tags', 'fdevs_tag');

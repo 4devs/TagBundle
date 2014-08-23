@@ -28,7 +28,7 @@ class TagType extends AbstractType
         $builder
             ->add('id', 'text')
             ->add('name', 'translatable')
-            ->add('type', 'choice', ['choices' => array_combine($this->types, $this->types)]);
+            ->add('type', 'choice', ['choices' => $this->types]);
     }
 
     /**

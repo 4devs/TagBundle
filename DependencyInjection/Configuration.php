@@ -23,7 +23,8 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('list_type')
-                    ->defaultValue(['base'])
+                    ->useAttributeAsKey('name')
+                    ->defaultValue(['base'=>'Base'])
                     ->prototype('scalar')->end()
                 ->end()
                 ->scalarNode('model_class')->end()
