@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="f_devs_tag.admin.tag.class">FDevs\TagBundle\Sonata\Admin\TagAdmin</parameter>
+        <parameter key="f_devs_tag.admin.groupname">Tag</parameter>
+        <parameter key="f_devs_tag.admin.label_catalogue">FDevsTagBundle</parameter>
+    </parameters>
+
+    <services>
+        <service id="f_devs_tag.admin.tag" class="%f_devs_tag.admin.tag.class%">
+            <tag name="sonata.admin" label_catalogue="%f_devs_tag.admin.label_catalogue%"
+                 manager_type="doctrine_mongodb" group="%f_devs_tag.admin.groupname%" label="tags"/>
+            <argument/>
+            <argument>%f_devs_tag.model_tag.class%</argument>
+            <argument/>
+        </service>
+    </services>
+
+</container>
