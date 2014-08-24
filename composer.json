@@ -26,5 +26,4 @@
         "psr-0": { "FDevs\\TagBundle": "" }
     },
     "target-dir": "FDevs/TagBundle"
-
 }
