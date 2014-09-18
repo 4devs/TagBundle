@@ -13,7 +13,10 @@ class TagAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('tags', 'fdevs_tag', ['inherit_data' => true, 'label' => false]);
+        $formMapper
+            ->with('form.group_tags')
+                ->add('tags', 'fdevs_tag', ['inherit_data' => true, 'label' => false])
+            ->end();
     }
 
     /**

@@ -1,0 +1,5 @@
+form:
+    group_tag: 'Tag'
+
+label:
+    tags: "Tags"
