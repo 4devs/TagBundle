@@ -27,8 +27,8 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue(['base'=>'Base'])
                     ->prototype('scalar')->end()
                 ->end()
-                ->scalarNode('model_class')->end()
-                ->scalarNode('form_class')->end()
+                ->scalarNode('model_class')->defaultValue('FDevs\TagBundle\Model\Tag')->end()
+                ->scalarNode('form_class')->defaultValue('FDevs\TagBundle\Form\Type\TagType')->end()
             ->end();
 
         return $treeBuilder;

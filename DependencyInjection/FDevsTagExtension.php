@@ -26,12 +26,8 @@ class FDevsTagExtension extends Extension
         $container->setParameter($this->getAlias() . '.backend_type_mongodb', true);
         $container->setParameter($this->getAlias() . '.list_type', $config['list_type']);
 
-        if (!empty($config['model_class'])) {
-            $container->setParameter($this->getAlias() . '.model_tag.class', $config['model_class']);
-        }
-        if (!empty($config['form_class'])) {
-            $container->setParameter($this->getAlias() . '.form_type_tag.class', $config['form_class']);
-        }
+        $container->setParameter($this->getAlias() . '.model_tag.class', $config['model_class']);
+        $container->setParameter($this->getAlias() . '.form_type_tag.class', $config['form_class']);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('form.xml');
