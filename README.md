@@ -1,5 +1,5 @@
-Locale Bundle
-==============
+Tag Bundle
+==========
 [![Build Status](https://secure.travis-ci.org/4devs/TagBundle.png?branch=master)](http://travis-ci.org/4devs/TagBundle)
 
 Documentation

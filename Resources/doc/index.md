@@ -12,9 +12,9 @@ Installation and usage is a quick:
 5. Create Event
 
 
-### Step 1: Download Locale bundle using composer
+### Step 1: Download Tag bundle using composer
 
-Add Locale bundle in your composer.json:
+Add Tag bundle in your composer.json:
 
 ```json
 {

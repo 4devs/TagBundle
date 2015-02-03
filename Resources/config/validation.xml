@@ -7,15 +7,5 @@
         <property name="type">
             <constraint name="NotBlank"/>
         </property>
-<!--
-        <property name="slug">
-            <constraint name="NotBlank"/>
-        </property>
--->
-<!--
-        <property name="name">
-            <constraint name="FDevs\Locale\Validator\Constraints\UniqueText"/>
-        </property>
--->
     </class>
 </constraint-mapping>
