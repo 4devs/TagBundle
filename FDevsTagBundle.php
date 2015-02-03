@@ -3,6 +3,8 @@
 namespace FDevs\TagBundle;
 
 use Doctrine\Bundle\MongoDBBundle\DependencyInjection\Compiler\DoctrineMongoDBMappingsPass;
+use FDevs\TagBundle\DependencyInjection\Compiler\SerializerPass;
+use FDevs\TagBundle\DependencyInjection\Compiler\ValidationPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -15,15 +17,30 @@ class FDevsTagBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(
-            DoctrineMongoDBMappingsPass::createXmlMappingDriver(
-                array(
-                    realpath(__DIR__ . '/Resources/config/doctrine/model') => 'FDevs\TagBundle\Model',
-                ),
-                array('f_devs_tag.manager_name'),
-                'f_devs_tag.backend_type_mongodb'
-            )
-        );
+        $this->addRegisterMappingsPass($container);
+        $container
+            ->addCompilerPass(new SerializerPass())
+            ->addCompilerPass(new ValidationPass())
+        ;
     }
 
+    /**
+     * @param ContainerBuilder $container
+     */
+    private function addRegisterMappingsPass(ContainerBuilder $container)
+    {
+        $refl = new \ReflectionClass('FDevs\Tag\TagInterface');
+
+        $mappings = [realpath(dirname($refl->getFileName()).'/Resources/doctrine/model') => 'FDevs\Tag\Model'];
+
+        if (class_exists('Doctrine\Bundle\MongoDBBundle\DependencyInjection\Compiler\DoctrineMongoDBMappingsPass')) {
+            $container->addCompilerPass(
+                DoctrineMongoDBMappingsPass::createXmlMappingDriver(
+                    $mappings,
+                    ['f_devs_tag.model_manager_name'],
+                    'f_devs_tag.backend_type_mongodb'
+                )
+            );
+        }
+    }
 }

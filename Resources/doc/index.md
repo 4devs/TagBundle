@@ -1,22 +1,22 @@
-Getting Started With TagBundle
-===========================================
+Getting Started With Tag Bundle
+===============================
 
 ## Installation and usage
 
 Installation and usage is a quick:
 
-1. Download TagBundle using composer
-2. Enable the Bundle
-3. Use the bundle with SonataAdminBundle
-4. Use the bundle
-5. Use with another form type and model
+1. Download bundle using composer
+2. Enable the bundle
+3. Use the bundle
+4. Use with Rest bundle
+5. Create Event
 
 
-### Step 1: Download TagBundle using composer
+### Step 1: Download Locale bundle using composer
 
-Add TagBundle in your composer.json:
+Add Locale bundle in your composer.json:
 
-```js
+```json
 {
     "require": {
         "fdevs/tag-bundle": "*"
@@ -46,90 +46,81 @@ public function registerBundles()
     $bundles = array(
         // ...
         new FDevs\TagBundle\FDevsTagBundle(),
-        new FDevs\PageBundle\FDevsPageBundle(),
     );
 }
 ```
 
+### Step 3: Use the bundle
 
-### Step 3: Use the bundle with SonataAdminBundle
 
-add config
-``` yaml
-# app/config/config.yml
-sonata_admin:
-    #.....
-    dashboard:
-        groups:
-            label.tags:
-                label_catalogue: FDevsTagBundle
-                items:
-                    - f_devs_tag.admin.tag
-```
+### Step 4: Use with Rest bundle
 
-### Step 4: Use the bundle
+1. install [FosRestBundle](https://github.com/FriendsOfSymfony/FOSRestBundle/blob/master/Resources/doc/1-setting_up_the_bundle.md) and [NelmioApiDocBundle](https://github.com/nelmio/NelmioApiDocBundle/blob/master/Resources/doc/index.md)
+2. add routing
 
-add config
-``` yaml
-# app/config/config.yml
+```yaml
 f_devs_tag:
-    list_type:
-        tag: 'Tag'
-        category: 'Category'
+    resource: "@FDevsTagBundle/Resources/config/routing.xml"
+    type:         rest
 ```
 
-use in form
+### Step 5: Create Event
+
+create event
 
 ``` php
-$builder->add('tags', 'fdevs_tag');
-```
 
-### Step 5: Use with another form type and model
+<?php
+// src/AppBundle/EventListener/TagListener.php
 
-add custom Model
+<?php
 
-``` php
-namespace Acme\DemoBundle\Model;
+namespace AppBundle\EventListener;
 
-use FDevs\TagBundle\ModelBaseTag;
-class MyTag extends BaseTag
+use FDevs\Tag\Event\TagEvent;
+use FDevs\Tag\Events;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
+class TagListener implements EventSubscriberInterface
 {
-    /**
-     * @var string $type
-     */
-    protected $custom;
-....
-
-}
-```
-
-add custom form
-
-``` php
-namespace Acme\DemoBundle\Form\Type;;
-
-use FDevs\TagBundle\Form\Type\TagType;
-class MyFormType extends TagType
-{
-....
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function postPersist(TagEvent $event)
     {
-        $builder->add('custom', 'text');
+        //....
     }
 
-    public function getParent()
+    public static function getSubscribedEvents()
     {
-        return 'fdevs_tag';
+        return [
+            Events::TAG_POST_PERSIST => 'postPersist',
+//            Events::TAG_CREATE => 'create',
+//            Events::TAG_PRE_PERSIST => 'prePersist',
+        ];
     }
+
 }
+
 ```
 
-add config
-``` yaml
-# app/config/config.yml
-f_devs_tag:
-    #....
-    model_class:  "Acme\DemoBundle\Model\MyTag"
-    form_class:   "Acme\DemoBundle\Form\Type\MyFormTag"
-```
+add event to service container
 
+``` xml
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="app.listener.tag.class">AppBundle\EventListener\TagListener</parameter>
+        <!--...-->
+    </parameters>
+
+    <services>
+        <service id="app.listener.tag" class="%app.listener.tag.class%">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+        <!--...-->
+    </services>
+</container>
+
+```

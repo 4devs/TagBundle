@@ -1,10 +1,10 @@
 {
     "name": "fdevs/tag-bundle",
     "license": "MIT",
-    "type": "synfony-bundle",
-    "description": "Bundle for Tags",
+    "type": "symfony-bundle",
+    "description": "Bundle for working with tag",
     "homepage": "https://github.com/4devs/TagBundle",
-    "keywords": ["symfony", "catalog"],
+    "keywords": ["tag"],
     "authors": [
         {
             "name": "Samusev Andrey",
@@ -12,18 +12,23 @@
             "homepage": "http://andrey.4devs.io/"
         },
         {
-            "name": "4devs Tag Community",
+            "name": "4devs Community",
             "homepage": "https://github.com/4devs/TagBundle/contributors"
         }
     ],
+    "require-dev": {},
     "require": {
-        "php": ">=5.4",
-        "symfony/symfony": "~2.5",
-        "twig/extensions": "~1.0",
-        "fdevs/page-bundle": "~1.0"
+        "fdevs/locale-bundle": "~1.0",
+        "cocur/slugify": "~1.0",
+        "fdevs/tag": "~1.0"
+    },
+    "suggest": {
+        "friendsofsymfony/rest-bundle": "use rest",
+        "nelmio/api-doc-bundle": "use doc for rest",
+        "doctrine/mongodb-odm-bundle": "to use with mongodb bundle",
+        "jms/serializer-bundle": "to use with serializer"
     },
     "autoload": {
-        "psr-0": { "FDevs\\TagBundle": "" }
-    },
-    "target-dir": "FDevs/TagBundle"
+        "psr-4": {"FDevs\\TagBundle\\": ""}
+    }
 }

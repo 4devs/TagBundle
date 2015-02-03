@@ -13,7 +13,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getConfigTreeBuilder()
     {
@@ -22,15 +22,41 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('list_type')
-                    ->useAttributeAsKey('name')
-                    ->defaultValue(['base'=>'Base'])
+                ->append($this->dbDriver())
+                ->scalarNode('class_name')->defaultValue('FDevs\Tag\Model\Tag')->end()
+                ->arrayNode('default_criteria')
+                    ->defaultValue([])
                     ->prototype('scalar')->end()
                 ->end()
-                ->scalarNode('model_class')->defaultValue('FDevs\TagBundle\Model\Tag')->end()
-                ->scalarNode('form_class')->defaultValue('FDevs\TagBundle\Form\Type\TagType')->end()
+                ->arrayNode('type_list')
+                    ->requiresAtLeastOneElement()
+                    ->defaultValue(['tag' => 'Tag'])
+                    ->prototype('scalar')->end()
+                ->end()
             ->end();
 
         return $treeBuilder;
+    }
+    private function dbDriver()
+    {
+        $supportedDrivers = ['mongodb'];
+        $treeBuilder = new TreeBuilder();
+        $rootNode = $treeBuilder->root('db');
+
+        $rootNode
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->scalarNode('driver')
+                    ->defaultValue('mongodb')
+                        ->validate()
+                        ->ifNotInArray($supportedDrivers)
+                        ->thenInvalid('The driver %s is not supported. Please choose one of '.json_encode($supportedDrivers))
+                    ->end()
+                ->end()
+                ->scalarNode('manager_name')->defaultNull()->end()
+            ->end()
+        ;
+
+        return $rootNode;
     }
 }

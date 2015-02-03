@@ -4,14 +4,9 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="f_devs_tag.form.type.tag.class">FDevs\Tag\Form\Type\TagType</parameter>
-    </parameters>
-
     <services>
-        <service id="f_devs_tag.form.type.tag" class="%f_devs_tag.form.type.tag.class%">
-            <argument>%f_devs_tag.type_list%</argument>
-            <tag name="form.type" alias="fdevs_tag"/>
+        <service id="f_devs_tag.model_manager" factory-service="doctrine_mongodb" factory-method="getManager" class="Doctrine\ODM\MongoDB\DocumentManager" public="false">
+            <argument>%f_devs_tag.model_manager_name%</argument>
         </service>
     </services>
 
