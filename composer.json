@@ -18,7 +18,7 @@
     ],
     "require-dev": {},
     "require": {
-        "fdevs/locale-bundle": "~1.0",
+        "fdevs/locale-bundle": "~2.0",
         "cocur/slugify": "~1.0",
         "fdevs/tag": "~1.0"
     },
