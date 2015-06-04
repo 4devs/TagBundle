@@ -1,0 +1,10 @@
+label:
+    tags: "Список Тэгов"
+
+form:
+    edit_tags: "Редактировать Тэг"
+
+Name: "Имя"
+Type: "Тип"
+Slug: "Идентификатор"
+Description: "Описание"
