@@ -1,0 +1,10 @@
+label:
+    tags: "List Tag"
+
+form:
+    edit_tags: "Edit Tags"
+
+Name: "Name"
+Type: "Type"
+Slug: "Slug"
+Description: "Description"

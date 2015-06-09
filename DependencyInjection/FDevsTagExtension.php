@@ -29,10 +29,15 @@ class FDevsTagExtension extends Extension
         $container->setParameter($this->getAlias().'.backend_type_'.$config['db']['driver'], true);
         $container->setParameter($this->getAlias().'.storage', $config['db']['driver']);
         $container->setParameter($this->getAlias().'.default_criteria', $config['default_criteria']);
+        $container->setParameter($this->getAlias().'.form', $config['tag_form']);
 
         $loader->load($config['db']['driver'].'.xml');
 
         $loader->load('services.xml');
         $loader->load('form.xml');
+
+        if ($config['admin_driver'] !== 'none') {
+            $loader->load(sprintf('admin/%s.xml', $config['admin_driver']));
+        }
     }
 }

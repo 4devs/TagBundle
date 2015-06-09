@@ -20,10 +20,19 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('f_devs_tag');
 
+        $supportedAdmins = ['sonata', 'none'];
+
         $rootNode
             ->children()
                 ->append($this->dbDriver())
                 ->scalarNode('class_name')->defaultValue('FDevs\Tag\Model\Tag')->end()
+                ->scalarNode('tag_form')->defaultValue('fdevs_tag')->end()
+                ->scalarNode('admin_driver')->defaultValue('none')
+                    ->validate()
+                        ->ifNotInArray($supportedAdmins)
+                        ->thenInvalid('The admin %s is not supported. Please choose one of '.json_encode($supportedAdmins))
+                    ->end()
+                ->end()
                 ->arrayNode('default_criteria')
                     ->defaultValue([])
                     ->prototype('scalar')->end()
