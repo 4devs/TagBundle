@@ -4,7 +4,9 @@
     "type": "symfony-bundle",
     "description": "Bundle for working with tag",
     "homepage": "https://github.com/4devs/TagBundle",
-    "keywords": ["tag"],
+    "keywords": [
+        "tag"
+    ],
     "authors": [
         {
             "name": "Samusev Andrey",
@@ -20,15 +22,17 @@
     "require": {
         "fdevs/locale-bundle": "~2.0",
         "cocur/slugify": "~1.0",
-        "fdevs/tag": "~1.1"
+        "fdevs/tag": "~1.1",
+        "friendsofsymfony/rest-bundle": "~1.7",
+        "nelmio/api-doc-bundle": "~2.9"
     },
     "suggest": {
-        "friendsofsymfony/rest-bundle": "use rest",
-        "nelmio/api-doc-bundle": "use doc for rest",
         "doctrine/mongodb-odm-bundle": "to use with mongodb bundle",
         "jms/serializer-bundle": "to use with serializer"
     },
     "autoload": {
-        "psr-4": {"FDevs\\TagBundle\\": ""}
+        "psr-4": {
+            "FDevs\\TagBundle\\": ""
+        }
     }
 }
