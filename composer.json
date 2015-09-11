@@ -22,7 +22,7 @@
     "require": {
         "fdevs/locale-bundle": "~2.0",
         "cocur/slugify": "~1.0",
-        "fdevs/tag": "~1.1",
+        "fdevs/tag": "~1.2",
         "friendsofsymfony/rest-bundle": "~1.7",
         "nelmio/api-doc-bundle": "~2.9"
     },

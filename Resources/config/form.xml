@@ -6,12 +6,19 @@
 
     <parameters>
         <parameter key="f_devs_tag.form.type.tag.class">FDevs\Tag\Form\Type\TagType</parameter>
+        <parameter key="f_devs_tag.form.type.tag_list.class">FDevs\TagBundle\Form\Type\TagListType</parameter>
     </parameters>
 
     <services>
         <service id="f_devs_tag.form.type.tag" class="%f_devs_tag.form.type.tag.class%">
             <argument>%f_devs_tag.type_list%</argument>
             <tag name="form.type" alias="fdevs_tag"/>
+        </service>
+
+        <service id="f_devs_tag.form.type.tag_list" class="%f_devs_tag.form.type.tag_list.class%">
+            <argument>%f_devs_tag.form_type%</argument>
+            <argument>%f_devs_tag.class_name%</argument>
+            <tag name="form.type" alias="fdevs_tag_list"/>
         </service>
     </services>
 
