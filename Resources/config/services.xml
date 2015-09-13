@@ -11,7 +11,7 @@
     <services>
         <service id="f_devs_tag.manager" class="%f_devs_tag.manager.class%">
             <argument type="service" id="f_devs_tag.model_manager"/>
-            <argument>%f_devs_tag.class_name%</argument>
+            <argument type="service" id="f_devs_tag.tag.repository"/>
             <argument type="service" id="event_dispatcher"/>
             <call method="setDefaultCriteria">
                 <argument>%f_devs_tag.default_criteria%</argument>

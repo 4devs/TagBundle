@@ -11,6 +11,12 @@ class TagAdmin extends Admin
     /** @var string */
     private $tagForm = 'fdevs_tag';
 
+    /** @var string */
+    protected $baseRouteName = 'sonata_admin_tag';
+
+    /** @var string */
+    protected $baseRoutePattern = 'tag';
+
     /**
      * {@inheritdoc}
      */
