@@ -17,6 +17,9 @@
             <argument/>
             <argument>%f_devs_tag.class_name%</argument>
             <argument/>
+            <call method="setTagManager">
+                <argument type="service" id="f_devs_tag.manager"/>
+            </call>
             <call method="setTagForm">
                 <argument>%f_devs_tag.form%</argument>
             </call>

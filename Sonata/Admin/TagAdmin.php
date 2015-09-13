@@ -2,6 +2,7 @@
 
 namespace FDevs\TagBundle\Sonata\Admin;
 
+use FDevs\Tag\TagManagerInterface;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -17,27 +18,49 @@ class TagAdmin extends Admin
     /** @var string */
     protected $baseRoutePattern = 'tag';
 
+    /** @var TagManagerInterface */
+    private $tagManager;
+
     /**
      * {@inheritdoc}
      */
-    protected function configureFormFields(FormMapper $formMapper)
+    public function getNewInstance()
     {
-        $formMapper
-            ->with('form.edit_tags', ['translation_domain' => 'FDevsTagBundle'])
-                ->add('tags', $this->tagForm, ['inherit_data' => true, 'label' => false, 'translation_domain' => 'FDevsTagBundle'])
-            ->end();
+        return $this->tagManager->createTag();
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function create($object)
+    {
+        $this->tagManager->updateTag($object);
+
+        return parent::create($object);
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function configureListFields(ListMapper $listMapper)
+    public function update($object)
     {
-        $listMapper
-            ->addIdentifier('id')
-            ->add('name')
-            ->add('type')
-            ->add('slug');
+        $this->tagManager->updateTag($object);
+
+        return parent::update($object);
+    }
+
+
+    /**
+     * @param TagManagerInterface $manager
+     *
+     * @return $this
+     */
+    public function setTagManager(TagManagerInterface $manager)
+    {
+        $this->tagManager = $manager;
+
+        return $this;
     }
 
     /**
@@ -52,5 +75,30 @@ class TagAdmin extends Admin
         $this->tagForm = $tagForm;
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('form.edit_tags', ['translation_domain' => 'FDevsTagBundle'])
+            ->add('tags', $this->tagForm, ['inherit_data' => true, 'label' => false, 'translation_domain' => 'FDevsTagBundle'])
+            ->end()
+        ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function configureListFields(ListMapper $listMapper)
+    {
+        $listMapper
+            ->addIdentifier('id')
+            ->add('name')
+            ->add('type')
+            ->add('slug')
+        ;
     }
 }
