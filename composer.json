@@ -18,13 +18,15 @@
             "homepage": "https://github.com/4devs/TagBundle/contributors"
         }
     ],
-    "require-dev": {},
-    "require": {
-        "fdevs/locale-bundle": "~2.0",
-        "cocur/slugify": "~1.0",
-        "fdevs/tag": "~1.2",
+    "require-dev": {
         "friendsofsymfony/rest-bundle": "~1.7",
         "nelmio/api-doc-bundle": "~2.9"
+    },
+    "require": {
+        "symfony/framework-bundle": "~2.8|~3.0",
+        "fdevs/locale-bundle": "~2.0",
+        "cocur/slugify": "~1.0",
+        "fdevs/tag": "~1.2"
     },
     "suggest": {
         "doctrine/mongodb-odm-bundle": "to use with mongodb bundle",
