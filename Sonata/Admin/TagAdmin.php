@@ -2,14 +2,15 @@
 
 namespace FDevs\TagBundle\Sonata\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
+use FDevs\Tag\Form\Type\TagType;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
-class TagAdmin extends Admin
+class TagAdmin extends AbstractAdmin
 {
     /** @var string */
-    private $tagForm = 'fdevs_tag';
+    private $tagForm = TagType::class;
 
     /** @var string */
     protected $baseRouteName = 'sonata_admin_tag';

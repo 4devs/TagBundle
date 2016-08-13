@@ -20,12 +20,14 @@
     ],
     "require-dev": {
         "friendsofsymfony/rest-bundle": "~1.7",
-        "nelmio/api-doc-bundle": "~2.9"
+        "nelmio/api-doc-bundle": "~2.9",
+        "sonata-project/admin-bundle": "~3.0",
+        "symfony/form": "~2.8|~3.0"
     },
     "require": {
         "symfony/framework-bundle": "~2.8|~3.0",
         "fdevs/locale-bundle": "~2.0",
-        "cocur/slugify": "~1.0",
+        "cocur/slugify": "~2.0",
         "fdevs/tag": "~1.2"
     },
     "suggest": {
