@@ -28,7 +28,7 @@ class TagListType extends AbstractType
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -36,15 +36,15 @@ class TagListType extends AbstractType
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
             ->setDefaults([
-                'class'        => $this->class,
-                'multiple'     => true,
-                'tag_type'     => null,
+                'class' => $this->class,
+                'multiple' => true,
+                'tag_type' => null,
             ])
             ->setDefined(['tag_type'])
             ->setAllowedTypes('tag_type', ['string', 'null'])
@@ -60,7 +60,7 @@ class TagListType extends AbstractType
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getParent()
     {

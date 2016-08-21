@@ -2,11 +2,12 @@
 
 namespace FDevs\TagBundle\DependencyInjection;
 
+use FDevs\Tag\Form\Type\TagType;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * This is the class that validates and merges configuration from your app/config files
+ * This is the class that validates and merges configuration from your app/config files.
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
  */
@@ -26,7 +27,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->append($this->dbDriver())
                 ->scalarNode('class_name')->defaultValue('FDevs\Tag\Model\Tag')->end()
-                ->scalarNode('tag_form')->defaultValue('fdevs_tag')->end()
+                ->scalarNode('tag_form')->defaultValue(TagType::class)->end()
                 ->scalarNode('admin_driver')->defaultValue('none')
                     ->validate()
                         ->ifNotInArray($supportedAdmins)
