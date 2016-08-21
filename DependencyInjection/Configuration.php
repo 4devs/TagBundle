@@ -2,6 +2,7 @@
 
 namespace FDevs\TagBundle\DependencyInjection;
 
+use FDevs\Tag\Form\Type\TagType;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -26,7 +27,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->append($this->dbDriver())
                 ->scalarNode('class_name')->defaultValue('FDevs\Tag\Model\Tag')->end()
-                ->scalarNode('tag_form')->defaultValue('fdevs_tag')->end()
+                ->scalarNode('tag_form')->defaultValue(TagType::class)->end()
                 ->scalarNode('admin_driver')->defaultValue('none')
                     ->validate()
                         ->ifNotInArray($supportedAdmins)

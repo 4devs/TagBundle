@@ -70,7 +70,7 @@ class TagAdmin extends AbstractAdmin
      * @param string $tagForm
      *
      * @return $this
-     */git 
+     */
     public function setTagForm($tagForm)
     {
         $this->tagForm = $tagForm;
