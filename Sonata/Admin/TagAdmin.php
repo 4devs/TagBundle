@@ -30,7 +30,6 @@ class TagAdmin extends AbstractAdmin
         return $this->tagManager->createTag();
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -51,7 +50,6 @@ class TagAdmin extends AbstractAdmin
         return parent::update($object);
     }
 
-
     /**
      * @param TagManagerInterface $manager
      *
@@ -65,7 +63,7 @@ class TagAdmin extends AbstractAdmin
     }
 
     /**
-     * set Tag form
+     * set Tag form.
      *
      * @param string $tagForm
      *
