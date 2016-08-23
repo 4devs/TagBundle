@@ -22,7 +22,7 @@ class ValidationPass implements CompilerPassInterface
             return;
         }
 
-        $validationFile = __DIR__.'/../../Resources/config/validation/'.$storage.'.xml';
+        $validationFile = __DIR__.'/../../Resources/config/constraint/'.$storage.'.xml';
 
         $container->getDefinition('validator.builder')->addMethodCall('addXmlMapping', [$validationFile]);
     }
