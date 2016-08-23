@@ -7,7 +7,9 @@ use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Util\Codes;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -46,16 +48,16 @@ class RestController extends FOSRestController
      */
     public function cgetAction(ParamFetcher $paramFetcher)
     {
-        $limit = (int) $paramFetcher->get('limit');
-        $offset = (int) $paramFetcher->get('offset');
+        $limit = (int)$paramFetcher->get('limit');
+        $offset = (int)$paramFetcher->get('offset');
         $this->setSerializerGroups($paramFetcher->get('filter'));
         $query = [];
         if ($type = $paramFetcher->get('type')) {
             $query['type'] = $type;
         }
-        $data = $this->getManager()->setLimit($limit)->setOffset($offset)->findBy($query);
+        $data = $this->getManager()->findBy($query, $limit, $offset);
 
-        return $this->handleView($this->view($data, Codes::HTTP_OK));
+        return $this->handleView($this->view($data, Response::HTTP_OK));
     }
 
     /**
@@ -84,7 +86,7 @@ class RestController extends FOSRestController
             throw new NotFoundHttpException('tag not found');
         }
 
-        return $this->handleView($this->view($tag, Codes::HTTP_OK));
+        return $this->handleView($this->view($tag, Response::HTTP_OK));
     }
 
     /**
@@ -109,13 +111,15 @@ class RestController extends FOSRestController
         $tag = $manager->createTag();
         $form = $this->createForm($this->container->getParameter('f_devs_tag.form'), $tag, ['csrf_protection' => false]);
         $form->handleRequest($request);
+
         if ($form->isValid()) {
             $manager->updateTag($tag);
+            dump($this->handleView($this->view($tag, Response::HTTP_CREATED)));
 
-            return $this->handleView($this->view($tag, Codes::HTTP_CREATED));
+            return $this->handleView($this->view($tag, Response::HTTP_CREATED));
         }
 
-        return $this->handleView($this->view($form, Codes::HTTP_BAD_REQUEST));
+        return $this->handleView($this->view($form, Response::HTTP_BAD_REQUEST));
     }
 
     /**
@@ -149,4 +153,17 @@ class RestController extends FOSRestController
     {
         return $this->container->get('f_devs_tag.manager');
     }
+
+    /**
+     * @param string $type
+     * @param null   $data
+     * @param array  $options
+     *
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    protected function createForm($type, $data = null, array $options = [])
+    {
+        return $this->container->get('form.factory')->createNamed('', $type, $data, $options);
+    }
+
 }
